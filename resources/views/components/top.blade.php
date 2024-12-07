@@ -14,6 +14,8 @@
       </div>
       <div class="col-auto">
         <div class="d-flex flex-wrap align-items-center gap-3">
+          <div id="watch">00:00:00</div>
+
           <button type="button" data-theme-toggle class="w-40-px h-40-px bg-neutral-200 rounded-circle d-flex justify-content-center align-items-center"></button>
        
          
@@ -65,7 +67,7 @@
                   @if(Auth::user())
                   <h6 class="text-lg text-primary-light fw-semibold mb-2">{{ Auth::user()->name }} </h6>
                   @if(Auth::user()->role_id == 1)
-                  <span class="text-secondary-light fw-medium text-sm">Admin</span>
+                  <span class="text-secondary-light fw-medium text-sm">Super Admin</span>
                   @else 
                   <span class="text-secondary-light fw-medium text-sm">User</span>
                   @endif
@@ -89,4 +91,31 @@
       </div>
     </div>
   </div> 
-    
+    <script>
+      function updateWatch() {
+          const watchElement = document.getElementById('watch');
+
+          // Get the current time
+          const now = new Date();
+          let hours = now.getHours();
+          const minutes = String(now.getMinutes()).padStart(2, '0');
+          const seconds = String(now.getSeconds()).padStart(2, '0');
+
+          // Determine AM or PM
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+
+          // Convert to 12-hour format
+          hours = hours % 12 || 12; // Convert '0' hour to '12'
+
+          // Determine whether to blink the colon
+          const colon = now.getSeconds() % 2 === 0 ? ':' : ' ';
+
+          // Update the watch display
+          watchElement.textContent = `${hours}${colon}${minutes}${colon}${seconds} ${ampm}`;
+        }
+
+        // Initialize the watch and update it every second
+        setInterval(updateWatch, 1000);
+        updateWatch(); // Initial call to display time immediately
+
+    </script>

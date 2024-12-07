@@ -12,69 +12,77 @@
     <div class="sidebar-menu-area">
       <ul class="sidebar-menu" id="sidebar-menu">
         <li>
-          <a href="?page=dashboard">
+          <a href="{{ route('dashboard') }}">
             <iconify-icon icon="solar:home-smile-angle-outline" class="menu-icon"></iconify-icon>
             <span>Dashboard</span>
           </a>
         </li>
-        <li class="sidebar-menu-group-title">Warehouse Mangement</li>
+        <li class="sidebar-menu-group-title">Company CRM/MIS</li>
+      
         <li>
-          <a href="?page=add_warehouse">
-            <iconify-icon icon="carbon:add-filled" class="menu-icon"></iconify-icon>
-            <span>Add Warehouse</span>
-          </a>
-        </li>
-        <li>
-          <a href="?page=list_warehouse">
-            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
-            <span>Warehouse list</span> 
-          </a>
-        </li>
-        <li>
-          <a href="?page=add_distributor">
+          <a href="/add">
             <iconify-icon icon="carbon:add-filled" class="menu-icon"></iconify-icon>
             <span>Add Distributor</span>
           </a>
         </li>
         <li>
-          <a href="?page=add_retailer">
+          <a href="/addr">
             <iconify-icon icon="carbon:add-filled" class="menu-icon"></iconify-icon>
             <span>Add Retailer</span> 
+          </a>
+        </li>
+        <li>
+          <a href="/amst">
+            <iconify-icon icon="carbon:add-filled" class="menu-icon"></iconify-icon>
+            <span>Add Monthly Sale Targets</span> 
+          </a>
+        </li>
+
+        <li>
+          <a href="?page=list_stock">
+            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
+            <span>Retailer List</span> 
+          </a>
+        </li>
+
+        <li>
+          <a href="?page=list_stock">
+            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
+            <span>Company Associated Retailers list</span> 
+          </a>
+        </li>
+
+        <li>
+          <a href="?page=list_stock">
+            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
+            <span>Sale Approvales</span> 
+          </a>
+        </li>
+
+        <li>
+          <a href="?page=list_stock">
+            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
+            <span>Total Dealers List</span> 
+          </a>
+        </li>
+
+        <li>
+          <a href="?page=list_stock">
+            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
+            <span>District Wise List</span> 
+          </a>
+        </li>
+
+        <li>
+          <a href="?page=list_stock">
+            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
+            <span>Schemes List</span> 
           </a>
         </li>
        
         </li>
   
-        <li class="sidebar-menu-group-title">Stock Management</li> 
-  
-        <li class="">
-          <a href="?page=add_stock">
-            <iconify-icon icon="carbon:add-filled" class="menu-icon"></iconify-icon>
-            <span>Add Stock</span>
-          </a>
-        </li>
-        <li>
-          <a href="?page=list_stock">
-            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
-            <span>Stock list</span> 
-          </a>
-        </li>
-  
-        
-        <li class="sidebar-menu-group-title">Sale Management</li> 
-  
-        <li class="">
-          <a href="?page=add_sale">
-            <iconify-icon icon="carbon:add-filled" class="menu-icon"></iconify-icon>
-            <span>Add Sale</span>
-          </a>
-        </li>
-        <li>
-          <a href="?page=list_sale">
-            <iconify-icon icon="line-md:list" class="menu-icon"></iconify-icon>
-            <span>Sale list</span> 
-          </a>
-        </li>
+     
      
         <li class="sidebar-menu-group-title">User Management</li>
         <li class="dropdown">
