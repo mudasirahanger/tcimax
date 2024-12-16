@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TCI Admin</title>
+  <title>{{ !empty($title) ? $title : ''}} | TCI Admin </title>
   <link rel="icon" type="image/png" href="{{ asset('public/assets/images/favicon.png') }}" sizes="16x16">
   <!-- remix icon font css  -->
   <link rel="stylesheet" href="{{ asset('public/assets/css/remixicon.css') }}">
