@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
     // users 
     Route::get('users-list', [UsersController::class, 'users'])->name('users-list');
     Route::get('users-add', [UsersController::class, 'add'])->name('users-add');
+    Route::post('users-save', [UsersController::class, 'save'])->name('users-save');
 
 
 });

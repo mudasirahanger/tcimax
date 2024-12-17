@@ -47,6 +47,17 @@ class User extends Authenticatable
         ];
     }
 
+    public static function addUsers($data) {
+        $user = DB::table('users')
+                ->insert($data);
+
+        if($user){
+            return $user;
+        }else{
+            return null;
+        }
+    }
+
     public static function getRole($role_id) {
         $roles = DB::table('users_roles')
         ->where('role_id', $role_id)
@@ -55,6 +66,17 @@ class User extends Authenticatable
     
         if($roles){
             return $roles[0]->name;
+        }else{
+            return null;
+        }
+    }
+
+    public static function getRoles() {
+        $roles = DB::table('users_roles')
+        ->get()
+        ->toArray();
+        if($roles){
+            return $roles;
         }else{
             return null;
         }

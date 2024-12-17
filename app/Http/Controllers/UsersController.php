@@ -43,11 +43,52 @@ class UsersController extends Controller
         $data = [];
         $users = [];
         $data['title'] = 'Add Users';
-       
+        $data['roles'] = User::getRoles();
 
 
 
         return view('pages/users_add',$data);
+
+    }
+
+    public function save(Request $request) {
+
+        $data = [];
+        $users = [];
+        $data['title'] = '';
+
+
+
+        if($request->isMethod('post')){
+
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'password' => 'required',
+                'role_id' => 'required',
+                'status' => 'required',
+            ]);
+
+            $user = [
+                'name' => $request->name,
+                'lname' => $request->lname,
+                'mobile' =>  $request->mobile,
+                'email' => $request->email,
+                'email_verified_at' => NULL,
+                'password' =>  bcrypt($request->password),
+                'role_id' => $request->role_id,
+                'remember_token' => NULL,
+                'status' => $request->status,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            User::addUsers($user);
+            
+            return redirect()->route('users-list')->with('success', 'User added successfully');
+
+        }
+
 
     }
 

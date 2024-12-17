@@ -7,9 +7,9 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
             <h6 class="fw-semibold mb-0">Users</h6>
             </div>
-        
-            
-
+            {{-- @if($success)
+            {{ $success }}
+            @endif --}}
             <div class="card h-100 p-0 radius-12">
                 <div class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
                     <div class="d-flex align-items-center flex-wrap gap-3">
