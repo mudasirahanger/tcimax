@@ -63,6 +63,20 @@ class User extends Authenticatable
         }
     }
 
+    public static function getUsers($page,$limit,$role_id){
+        $users = DB::table('users')
+                     ->orderBy('id', 'desc')
+                      ->limit($limit)
+                      ->offset(($page - 1) * $limit)
+                      ->where('role_id', $role_id)
+                      ->get();
+        if($users){
+            return $users;
+        }else{
+            return null;
+        }
+    }
+
     public static function getRole($role_id) {
         $roles = DB::table('users_roles')
         ->where('role_id', $role_id)

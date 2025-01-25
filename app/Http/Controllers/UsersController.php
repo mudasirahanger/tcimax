@@ -13,13 +13,16 @@ class UsersController extends Controller
 
 
 
-    public function users(Request $request): View
+    public function users($page,$limit,$role_id)
     {
        
         $data = [];
         $users = [];
-        $data['title'] = 'List Users';
-        $results = User::paginate(env('APP_PAGINATION'));
+
+        if(!empty($page) && !empty($limit) && !empty($role_id)){
+
+        $results = User::getUsers($page,$limit,$role_id);
+
         foreach($results as $result){
             $users[] = [
             'sr' => $result->id,
@@ -31,10 +34,17 @@ class UsersController extends Controller
             ];
         }
         $data['users'] = $users;
-        $data['paginations'] = $results->links();
 
-
-        return view('pages/users_list',$data);
+        return response()->json([
+            'data' => $data,
+            'message' => 'Success',
+        ]);
+       } else {
+        return response()->json([
+            'data' => [],
+            'message' => 'Error',
+        ]);
+       }
     }
 
 
