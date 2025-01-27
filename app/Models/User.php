@@ -63,6 +63,17 @@ class User extends Authenticatable
         }
     }
 
+    public static function addUsersAddress($data) {
+        $users_address = DB::table('users_address')
+                ->insert($data);
+
+        if($users_address){
+            return $users_address;
+        }else{
+            return null;
+        }
+    }
+
     public static function getUsers($page,$limit,$role_id){
         $users = DB::table('users')
                      ->orderBy('id', 'desc')

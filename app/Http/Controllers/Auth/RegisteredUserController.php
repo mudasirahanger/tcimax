@@ -53,6 +53,19 @@ class RegisteredUserController extends Controller
                 'password' => Hash::make($validatedData['password']),
             ]);
 
+           
+           
+            // adding user address
+            $address = [];
+            $address['user_id'] = $user->id;
+            $address['address'] = $request->address ?? '';
+            $address['district'] = $request->district ?? '';
+            $address['tehsil'] =  $request->tehsil ?? '';
+            $address['pincode'] =  $request->pincode ?? '';
+            $address['created_at'] =  NOW();
+
+            $address_id = User::addUsersAddress($address);
+
             // Trigger the Registered event
             event(new Registered($user));
 
