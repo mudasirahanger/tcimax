@@ -111,4 +111,16 @@ class User extends Authenticatable
             return null;
         }
     }
+    public static function getDistrictByID($user_id) {
+        $roles = DB::table('users_address')
+        ->where('user_id', $user_id)
+        ->get()
+        ->toArray();   
+    
+        if($roles){
+            return $roles[0]->district;
+        }else{
+            return '';
+        }
+    }
 }

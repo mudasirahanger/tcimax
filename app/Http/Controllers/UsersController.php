@@ -22,16 +22,18 @@ class UsersController extends Controller
         if(!empty($page) && !empty($limit) && !empty($role_id)){
 
         $results = User::getUsers($page,$limit,$role_id);
-
+        $id = 1;
         foreach($results as $result){
             $users[] = [
-            'sr' => $result->id,
+            'sr' => $id,
             'name' => $result->name,
-            'email' => $result->email,
             'status' => $result->status,
+            'mobile' => $result->mobile,
+            'district' => User::getDistrictByID($result->id),
             'role' => User::getRole($result->role_id),
             'created_at' => Carbon::parse($result->created_at)->format('M d Y')
             ];
+            $id++;
         }
         $data['users'] = $users;
 
