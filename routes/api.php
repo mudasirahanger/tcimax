@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UsersController;
-
+use App\Http\Controllers\SalesController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -18,3 +18,6 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->midd
 
 // users
 Route::get('/users/{page}/{limit}/{role_id}', [UsersController::class, 'users'])->middleware('auth:sanctum');
+
+// sales
+Route::post('/addsales', [SalesController::class, 'addsales'])->middleware('auth:sanctum');
