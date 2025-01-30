@@ -31,7 +31,7 @@ class UsersController extends Controller
             'mobile' => $result->mobile,
             'district' => User::getDistrictByID($result->id),
             'role' => User::getRole($result->role_id),
-            'created_at' => Carbon::parse($result->created_at)->format('M d Y')
+            'created_at' => Carbon::parse($result->created_at)->format('d/m/Y')
             ];
             $id++;
         }
