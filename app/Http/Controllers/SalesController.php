@@ -124,4 +124,39 @@ class SalesController extends Controller
    }
 
 
+   public function getSalesQueue($page,$limit) {
+
+            $data = [];
+            $uploads = [];
+
+            if(!empty($page) && !empty($limit)){
+
+            $results = User::getSalesQueue($page,$limit);
+            $id = 1;
+            foreach($results as $result){
+                $uploads[] = [
+                'sr' => $id,
+                'dated' => Carbon::parse($result->created_on)->format('d/m/Y'),
+                'status' => $result->status,
+                'upload_by' => User::find($result->user_id)->name,
+                'upload_type' => $result->upload_type,
+                'process_id' => $result->process_id
+                ];
+                $id++;
+            }
+            $data['uploads'] = $uploads;
+
+            return response()->json([
+                'data' => $data,
+                'message' => 'Success',
+            ]);
+        } else {
+            return response()->json([
+                'data' => [],
+                'message' => 'Error',
+            ]);
+        }
+
+   }
+
 }

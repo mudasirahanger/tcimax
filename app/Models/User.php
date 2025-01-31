@@ -155,4 +155,18 @@ class User extends Authenticatable
         }
    } 
 
+   public static function getSalesQueue($page,$limit){
+    $uploads = DB::table('uploads')
+                 ->orderBy('upload_id', 'desc')
+                  ->limit($limit)
+                  ->offset(($page - 1) * $limit)
+                //  ->where('role_id', $role_id)
+                  ->get();
+    if($uploads){
+        return $uploads;
+    }else{
+        return null;
+    }
+}
+
 }
