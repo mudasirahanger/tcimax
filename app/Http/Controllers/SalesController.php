@@ -134,13 +134,19 @@ class SalesController extends Controller
             $results = User::getSalesQueue($page,$limit);
             $id = 1;
             foreach($results as $result){
+                if (Storage::exists($result->file_path)) {
+                 $url = asset('storage/app/private/' . $result->file_path);
+                } else {
+                 $url = '';
+                }
                 $uploads[] = [
                 'sr' => $id,
                 'dated' => Carbon::parse($result->created_on)->format('d/m/Y'),
                 'status' => $result->status,
                 'upload_by' => User::find($result->user_id)->name,
                 'upload_type' => $result->upload_type,
-                'process_id' => $result->process_id
+                'process_id' => $result->process_id,
+                'download' => $url
                 ];
                 $id++;
             }
