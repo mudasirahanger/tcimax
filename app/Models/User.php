@@ -123,4 +123,36 @@ class User extends Authenticatable
             return '';
         }
     }
+
+   public static function addUploadinfo($data) {
+    $file_info = DB::table('uploads')
+                          ->insert($data);
+        if($file_info){
+        return $file_info;
+        }else{
+        return null;
+        }
+   } 
+
+   public static function getUploadinfo() {
+    $file_info = DB::table('uploads')->where('process_id', 0)
+    ->get();
+    if($file_info){
+        return $file_info;
+    }else{
+        return null;
+    }
+   }
+
+   public static function updateUploadinfo($where,$update) {
+    $file_info = DB::table('uploads')
+                          ->where($where)
+                          ->update($update);
+        if($file_info){
+        return $file_info;
+        }else{
+        return null;
+        }
+   } 
+
 }

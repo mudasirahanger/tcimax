@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Excel;
 use App\Imports\SalesImportClass;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class SalesController extends Controller
 {
@@ -18,14 +20,44 @@ class SalesController extends Controller
       try {
         // Validate the uploaded file
         $request->validate([
-            'bulk_sales' => 'required|mimes:xlsx,xls',
+            'bulk_sales' => 'required|mimes:xlsx,xls,csv',
         ]);
 
+        $uploadinfo = [];
+
         // Get the uploaded file
-        $file = $request->file('bulk_sales');
+        $path = $request->file('bulk_sales')->store('excels');
+
+         // Get file details
+        $fileName = basename($path); // Get the file name
+        $fileExtension = $request->file('bulk_sales')->getClientOriginalExtension();
+        // Storage::url($path);        
+
+        // add files in queue
+        $uploadinfo['file_name'] = $fileName;
+        $uploadinfo['file_path'] = $path;
+        $uploadinfo['file_type'] = $fileExtension;
+        $uploadinfo['status'] = '0';
+        $uploadinfo['user_id'] = Auth::id();
+        $uploadinfo['upload_type'] = 'bulksales';
+        $uploadinfo['process_id'] = '0';
+        $uploadinfo['processed_at'] = NOW();
+        $uploadinfo['created_on'] = NOW();
+
+         User::addUploadinfo($uploadinfo);
+
+            // Return success response
+            return response()->json([
+                'success' => true,
+                'message' => 'Sales Data Uploaded in queue successfully.',
+            ], 201);
+
 
         // Process the Excel file
-        Excel::import(new SalesImportClass, $file);
+       // Excel::import(new SalesImportClass, $file);
+
+
+
     } catch (ValidationException $e) {
         // Handle validation errors
         return response()->json([
