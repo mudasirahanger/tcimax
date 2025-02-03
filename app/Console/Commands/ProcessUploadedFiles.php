@@ -54,9 +54,9 @@ class ProcessUploadedFiles extends Command
                 
                 User::updateUploadinfo($where,$update);
 
-                $this->info("Processed: " . $upload->file_name);
+                $this->info("Processed: " . $upload->file_name . ' Type: ' . $upload->upload_type);
             } else {
-                $this->error("File not found: " . $upload->file_name);
+                $this->error("File not found: " . $upload->file_name . ' Type: ' . $upload->upload_type);
             }
         }
 
