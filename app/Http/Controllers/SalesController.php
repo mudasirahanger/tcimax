@@ -124,14 +124,14 @@ class SalesController extends Controller
    }
 
 
-   public function getSalesQueue($page,$limit) {
+   public function getSalesQueue($page,$limit,$type) {
 
             $data = [];
             $uploads = [];
 
-            if(!empty($page) && !empty($limit)){
+            if(!empty($page) && !empty($limit) && !empty($type)){
 
-            $results = User::getSalesQueue($page,$limit);
+            $results = User::getSalesQueue($page,$limit,$type);
             $id = 1;
             foreach($results as $result){
                 if (Storage::exists($result->file_path)) {
@@ -146,6 +146,7 @@ class SalesController extends Controller
                 'upload_by' => User::find($result->user_id)->name,
                 'upload_type' => $result->upload_type,
                 'process_id' => $result->process_id,
+                'upload_type' => $result->upload_type,
                 'download' => $url
                 ];
                 $id++;
