@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Excel;
 use App\Imports\SalesImportClass;
+use App\Imports\UsersImportClass;
 
 class ProcessUploadedFiles extends Command
 {
@@ -41,10 +42,17 @@ class ProcessUploadedFiles extends Command
                $where = ['upload_id' => $upload->upload_id];
                $update = ['process_id' => '1', 'processed_at' => now()];
               
-                User::updateUploadinfo($where,$update);
-
-                       // Process the Excel file
+                if($upload->upload_type === 'bulksales'){
+                // Process the Excel file
                // Excel::import(new SalesImportClass, $file);
+                } 
+                if($upload->upload_type === 'bulkusers'){
+                    // Process the Excel file
+                    Excel::import(new UsersImportClass, $filePath);
+                } 
+               
+                
+                User::updateUploadinfo($where,$update);
 
                 $this->info("Processed: " . $upload->file_name);
             } else {
