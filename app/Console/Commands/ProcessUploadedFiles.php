@@ -5,7 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
-
+use Excel;
+use App\Imports\SalesImportClass;
 
 class ProcessUploadedFiles extends Command
 {
@@ -21,7 +22,7 @@ class ProcessUploadedFiles extends Command
      *
      * @var string
      */
-    protected $description = 'Process uploaded files every 15 minutes';
+    protected $description = 'Process uploaded files every 5 minutes';
 
     /**
      * Execute the console command.
@@ -40,7 +41,10 @@ class ProcessUploadedFiles extends Command
                $where = ['upload_id' => $upload->upload_id];
                $update = ['process_id' => '1', 'processed_at' => now()];
               
-               User::updateUploadinfo($where,$update);
+                User::updateUploadinfo($where,$update);
+
+                       // Process the Excel file
+               // Excel::import(new SalesImportClass, $file);
 
                 $this->info("Processed: " . $upload->file_name);
             } else {
