@@ -42,7 +42,7 @@ class ProcessUploadedFiles extends Command
                $where = ['upload_id' => $upload->upload_id];
                $update = ['process_id' => '1', 'processed_at' => now()];
               
-                if($upload->upload_type === 'bulksales'){
+                if($upload->upload_type === 'bulksales' && $upload->status == true){
                 // Process the Excel file
                // Excel::import(new SalesImportClass, $file);
                 } 

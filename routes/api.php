@@ -24,3 +24,4 @@ Route::post('/addbulkusers', [UsersController::class, 'addbulkusers'])->middlewa
 Route::post('/addbulksales', [SalesController::class, 'addbulksales'])->middleware('auth:sanctum');
 Route::post('/addsales', [SalesController::class, 'addsales'])->middleware('auth:sanctum');
 Route::get('/getSalesQueue/{page}/{limit}/{type}', [SalesController::class, 'getSalesQueue'])->middleware('auth:sanctum');
+Route::post('/approveSales', [SalesController::class, 'approveSales'])->middleware('auth:sanctum');

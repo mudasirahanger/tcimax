@@ -141,6 +141,7 @@ class SalesController extends Controller
                 }
                 $uploads[] = [
                 'sr' => $id,
+                'upload_id' => $result->upload_id,
                 'dated' => Carbon::parse($result->created_on)->format('d/m/Y'),
                 'status' => $result->status,
                 'upload_by' => User::find($result->user_id)->name,
@@ -165,5 +166,45 @@ class SalesController extends Controller
         }
 
    }
+
+
+    public function approveSales(Request $request)
+    {
+
+        try {
+            // Validate the uploaded file
+            $validatedData = $request->validate([
+                'user_id' => ['required'],
+                'upload_id' => ['required'],
+                'status' => ['required']
+            ], [
+                'user_id.required' => 'user_id is required.',
+                'upload_id.required' => 'upload_id is required.',
+                'status.required' => 'status is required.',
+            ]);
+
+            $sales = [];
+            $sales['user_id'] = $request->user_id;
+            $sales['upload_id'] = $request->upload_id ?? '';
+            $sales['status'] = $request->status ?? '';    
+            $sales['upload_type'] = 'bulksales';        
+            $sales['created_on'] =  NOW();
+
+            $results = User::UpdateSalesQueue($sales);
+
+            // Return success response
+            return response()->json([
+                'success' => true,
+
+            ], 200);
+        } catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json([
+                'success' => false,
+                'errors' => $e->errors(),
+            ], 422);
+        }
+    }
+
 
 }

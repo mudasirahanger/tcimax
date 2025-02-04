@@ -182,4 +182,30 @@ class User extends Authenticatable
     }
 }
 
+ 
+public static function UpdateSalesQueue($data){
+
+    $where = [
+        'upload_id' => $data['upload_id'],
+    ];
+    $update = [
+       'status' =>  $data['status']
+    ];
+ 
+    $file_info = DB::table('uploads')
+    ->where($where)
+    ->update($update);
+
+    DB::table('uploads_history')->insert($data);
+
+
+    if($file_info){
+        return $file_info;
+        }else{
+        return null;
+        }
+
+    }
+
+
 }
