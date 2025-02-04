@@ -124,6 +124,19 @@ class User extends Authenticatable
         }
     }
 
+    public static function getAddressByID($user_id) {
+        $roles = DB::table('users_address')
+        ->where('user_id', $user_id)
+        ->get()
+        ->toArray();   
+    
+        if($roles){
+            return $roles[0]->address;
+        }else{
+            return '';
+        }
+    }
+
    public static function addUploadinfo($data) {
     $file_info = DB::table('uploads')
                           ->insert($data);

@@ -28,11 +28,12 @@ class UsersController extends Controller
         foreach($results as $result){
             $users[] = [
             'sr' => $id,
-            'name' => $result->name,
+            'name' => $result->name .' '. $result->lname,
             'status' => $result->status,
             'mobile' => $result->mobile,
             'district' => User::getDistrictByID($result->id),
             'role' => User::getRole($result->role_id),
+            'address' => User::getAddressByID($result->id),
             'created_at' => Carbon::parse($result->created_at)->format('d/m/Y')
             ];
             $id++;
