@@ -87,6 +87,17 @@ class User extends Authenticatable
             return null;
         }
     }
+    public static function getUsersType($role_id){
+        $users = DB::table('users')
+                     ->orderBy('id', 'desc')
+                      ->where('role_id', $role_id)
+                      ->get();
+        if($users){
+            return $users;
+        }else{
+            return null;
+        }
+    }
 
     public static function getRole($role_id) {
         $roles = DB::table('users_roles')

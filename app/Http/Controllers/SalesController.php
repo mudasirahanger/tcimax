@@ -76,7 +76,7 @@ class SalesController extends Controller
       try {
         // Validate the uploaded file
         $validatedData = $request->validate([
-            'date' => ['required',],
+            'date' => ['required'],
             'distributor' => ['required',],
             'retailer' => ['required',],
             'retailer_address' => ['required'],
@@ -92,13 +92,17 @@ class SalesController extends Controller
         ]);
 
         $sales = [];
-        $sales['date'] = $request->date;
+        $sales['dated'] = $request->date;
+        $sales['distributor_id'] = '';
         $sales['distributor'] = $request->distributor ?? '';
+        $sales['retailer_id'] = '';
         $sales['retailer'] = $request->retailer ?? '';
         $sales['retailer_address'] =  $request->retailer_address ?? '';
         $sales['mobile'] =  $request->mobile ?? '';
         $sales['qty'] =  $request->qty ?? '';
-       // $sales['created_at'] =  NOW();
+        $sales['status'] = '1';
+      //  $sales['created_at'] =  NOW();
+     //   $sales['updated_at'] = NOW();
        
         echo '<pre>';
         var_dump($sales);

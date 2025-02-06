@@ -160,4 +160,40 @@ class UsersController extends Controller
     }    
 
 
+
+    public function getUsersByRole($role_id)
+    {
+       
+        $data = [];
+        $users = [];
+
+        if(!empty($role_id)){
+        $results = User::getUsersType($role_id);
+        $id = 1;
+        foreach($results as $result){
+            $users[] = [
+            'sr' => $id,
+            'user_id' => $result->id,
+            'mobile' => $result->mobile,
+            'name' => $result->name .' '. $result->lname,
+            'status' => $result->status
+            ];
+            $id++;
+        }
+        $data['users'] = $users;
+
+        return response()->json([
+            'data' => $data,
+            'message' => 'Success',
+        ]);
+       } else {
+        return response()->json([
+            'data' => [],
+            'message' => 'Error',
+        ]);
+       }
+    }
+
+
+
 }

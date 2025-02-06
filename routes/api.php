@@ -18,6 +18,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->midd
 
 // users
 Route::get('/users/{page}/{limit}/{role_id}', [UsersController::class, 'users'])->middleware('auth:sanctum');
+Route::get('/usersbyroleid/{role_id}', [UsersController::class, 'getUsersByRole'])->middleware('auth:sanctum');
 Route::post('/addbulkusers', [UsersController::class, 'addbulkusers'])->middleware('auth:sanctum');
 
 // sales
