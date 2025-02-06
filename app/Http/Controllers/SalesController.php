@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Sales;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -77,44 +78,44 @@ class SalesController extends Controller
         // Validate the uploaded file
         $validatedData = $request->validate([
             'date' => ['required'],
-            'distributor' => ['required',],
-            'retailer' => ['required',],
+            'distributor_id' => ['required','integer'],
+            'retailer_id' => ['required','integer'],
+            'retailer_name' => ['required'],
             'retailer_address' => ['required'],
-            'mobile' => ['required', 'integer'],
+            'retailer_mobile' => ['required', 'integer'],
             'qty' => ['required','integer'],
         ], [
-            'date.required' => 'date  is required.',
-            'distributor.required' => 'distributor is required.',
-            'retailer.required' => 'retailer is required.',
+            'date.required' => 'date is required.',
+            'distributor_id.required' => 'distributor id is required.',
+            'retailer_id.required' => 'retailer id is required.',
+            'retailer_name.required' => 'retailer name is required.',
             'retailer_address.required' => 'retailer address is required.',
-            'mobile.required' => 'mobile is required.',
+            'retailer_mobile.required' => 'retailer mobile is required.',
             'qty.required' => 'qty is required.',
         ]);
 
         $sales = [];
-        $sales['dated'] = $request->date;
-        $sales['distributor_id'] = '';
-        $sales['distributor'] = $request->distributor ?? '';
-        $sales['retailer_id'] = '';
-        $sales['retailer'] = $request->retailer ?? '';
+        $mysqlDate = Carbon::createFromFormat('d/M/Y', $request->date)->format('Y-m-d');
+        $sales['dated'] = $mysqlDate;
+        $sales['distributor_id'] = $request->distributor_id ?? '';
+        $sales['retailer_id'] = $request->retailer_id ?? '';
+        $sales['retailer_name'] = $request->retailer_name ?? '';
+        $sales['retailer_mobile'] =  $request->retailer_mobile ?? '';
         $sales['retailer_address'] =  $request->retailer_address ?? '';
-        $sales['mobile'] =  $request->mobile ?? '';
         $sales['qty'] =  $request->qty ?? '';
         $sales['status'] = '1';
-      //  $sales['created_at'] =  NOW();
-     //   $sales['updated_at'] = NOW();
-       
-        echo '<pre>';
-        var_dump($sales);
-        echo '</pre>';
-        die();
+        $sales['created_at'] = NOW();
+        $sales['updated_at'] = NOW();
 
+        // echo '<pre>';
+        // var_dump($sales);
+        // echo '</pre>';
+        // die();
 
-
+        Sales::create($sales);
         // Return success response
         return response()->json([
             'success' => true,
-           
         ], 200);
     } catch (ValidationException $e) {
         // Handle validation errors
