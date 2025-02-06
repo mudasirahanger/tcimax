@@ -24,10 +24,25 @@ class Sales extends Model
         'retailer_mobile',
         'qty',
         'status',
-        'password',
+        'source',
     ];
 
 
+
+
+    public static function getSales($page,$limit){
+        $sales = DB::table('sales')
+                     ->orderBy('sales_id', 'desc')
+                      ->limit($limit)
+                      ->offset(($page - 1) * $limit)
+                  //   ->where('upload_type', $type)
+                      ->get();
+        if($sales){
+            return $sales;
+        }else{
+            return null;
+        }
+    }
 
 
 }

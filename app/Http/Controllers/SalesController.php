@@ -104,7 +104,8 @@ class SalesController extends Controller
         $sales['retailer_address'] =  $request->retailer_address ?? '';
         $sales['qty'] =  $request->qty ?? '';
         $sales['status'] = '1';
-        $sales['created_at'] = NOW();
+        $sales['source'] = "form";
+        $sales['created_on'] = NOW();
         $sales['updated_at'] = NOW();
 
         // echo '<pre>';
@@ -210,6 +211,42 @@ class SalesController extends Controller
             ], 422);
         }
     }
+
+
+    public function getSales($page,$limit) {
+
+        $data = [];
+        $sales = [];
+
+        if(!empty($page) && !empty($limit)){
+
+        $results = Sales::getSales($page,$limit);
+        $id = 1;
+        foreach($results as $result){
+            $sales[] = [
+            'sr' => $id,
+            'dated' => Carbon::parse($result->created_at)->format('d/m/Y'),
+            'distributor' => User::find($result->distributor_id)->name,
+            'retailer' => User::find($result->retailer_id)->name,
+            'qty' => $result->qty
+            ];
+            $id++;
+        }
+        $data['sales'] = $sales;
+
+        return response()->json([
+            'data' => $data,
+            'message' => 'Success',
+        ]);
+    } else {
+        return response()->json([
+            'data' => [],
+            'message' => 'Error',
+        ]);
+    }
+
+}
+
 
 
 }
