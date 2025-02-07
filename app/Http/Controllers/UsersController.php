@@ -176,7 +176,8 @@ class UsersController extends Controller
             'user_id' => $result->id,
             'mobile' => $result->mobile,
             'name' => $result->name .' '. $result->lname,
-            'status' => $result->status
+            'address' => User::getAddressByID($result->id),
+            'status' => $result->status,
             ];
             $id++;
         }
