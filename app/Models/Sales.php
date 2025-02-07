@@ -25,6 +25,7 @@ class Sales extends Model
         'qty',
         'status',
         'source',
+        'voucher_no'
     ];
 
 

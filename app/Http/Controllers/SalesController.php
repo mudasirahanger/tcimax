@@ -105,6 +105,7 @@ class SalesController extends Controller
         $sales['qty'] =  $request->qty ?? '';
         $sales['status'] = '1';
         $sales['source'] = "form";
+        $sales['voucher_no'] = $request->voucher_no ?? '';
         $sales['created_on'] = NOW();
         $sales['updated_at'] = NOW();
 
