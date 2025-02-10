@@ -219,4 +219,27 @@ public static function UpdateSalesQueue($data){
     }
 
 
+
+    public static function addNotification($data) {
+        $file_info = DB::table('notification')
+                              ->insert($data);
+            if($file_info){
+            return $file_info;
+            }else{
+            return null;
+            }
+       } 
+    public static function getNotification($data) {
+        $msg = DB::table('notification')
+            ->orderBy('id', 'desc')
+           // ->limit($limit)
+           // ->offset(($page - 1) * $limit)
+            ->where($data)
+            ->get();
+        if ($msg) {
+            return $msg;
+        } else {
+            return null;
+        }
+    } 
 }

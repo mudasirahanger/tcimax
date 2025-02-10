@@ -27,3 +27,8 @@ Route::post('/addsales', [SalesController::class, 'addsales'])->middleware('auth
 Route::get('/getSalesQueue/{page}/{limit}/{type}', [SalesController::class, 'getSalesQueue'])->middleware('auth:sanctum');
 Route::post('/approveSales', [SalesController::class, 'approveSales'])->middleware('auth:sanctum');
 Route::get('/getSales/{page}/{limit}', [SalesController::class, 'getSales'])->middleware('auth:sanctum');
+
+// notify
+Route::post('/addMessage', [UsersController::class, 'addMessage'])->middleware('auth:sanctum');
+Route::post('/getMessage', [UsersController::class, 'getMessage'])->middleware('auth:sanctum');
+

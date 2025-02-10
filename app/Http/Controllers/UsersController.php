@@ -195,6 +195,84 @@ class UsersController extends Controller
        }
     }
 
+    public function addMessage(Request $request) {
+
+
+        try {
+            // Validate the uploaded file
+            $request->validate([
+                'message' => 'required',
+                'role_id' =>'required',
+                'user_id' => 'required'
+            ]);
+
+            $message = [
+                'message' => $request->message,
+                'user_id' => $request->user_id,
+                'role_id' =>  $request->role_id,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ];
+
+            User::addNotification($message);
+           
+               // Return success response
+               return response()->json([
+                'success' => true,
+                'message' => 'Notification added successfully.',
+            ], 201);
+
+
+
+        } catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json([
+                'success' => false,
+                'errors' => $e->errors(),
+            ], 422);
+    
+        }
+
+
+
+    }
+
+    public function getMessage(Request $request) {
+
+        try {
+            // Validate the uploaded file
+            $request->validate([
+                'role_id' =>'required',
+                'user_id' => 'required'
+            ]);
+
+            $message = [
+                'user_id' => $request->user_id,
+                'role_id' =>  $request->role_id,
+            ];
+
+            $messages = User::getNotification($message);
+
+
+           
+               // Return success response
+               return response()->json([
+                'success' => true,
+                'data' => $messages,
+                'message' => 'Notification retrived successfully.',
+            ], 201);
+
+
+
+        } catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json([
+                'success' => false,
+                'errors' => $e->errors(),
+            ], 422);
+    
+        }
+
+    }
 
 
 }
