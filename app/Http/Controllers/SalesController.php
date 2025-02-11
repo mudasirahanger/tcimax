@@ -226,10 +226,11 @@ class SalesController extends Controller
         foreach($results as $result){
             $sales[] = [
             'sr' => $id,
-            'dated' => Carbon::parse($result->created_at)->format('d/m/Y'),
+            'dated' => Carbon::parse($result->dated)->format('d/m/Y'),
             'distributor' => User::find($result->distributor_id)->name,
             'retailer' => User::find($result->retailer_id)->name,
-            'qty' => $result->qty
+            'qty' => $result->qty,
+            'voucher_no' =>  $result->voucher_no ?? '',
             ];
             $id++;
         }
