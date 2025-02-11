@@ -241,13 +241,13 @@ class UsersController extends Controller
         try {
             // Validate the uploaded file
             $request->validate([
-                'role_id' =>'required',
-                'user_id' => 'required'
+                'user_id' => 'required',
+                // 'role_id' =>'required'
             ]);
 
             $message = [
                 'user_id' => $request->user_id,
-                'role_id' =>  $request->role_id,
+                // 'role_id' =>  $request->role_id,
             ];
 
             $messages = User::getNotification($message);
