@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\DashboardController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -31,4 +32,7 @@ Route::get('/getSales/{page}/{limit}', [SalesController::class, 'getSales'])->mi
 // notify
 Route::post('/addMessage', [UsersController::class, 'addMessage'])->middleware('auth:sanctum');
 Route::post('/getMessage', [UsersController::class, 'getMessage'])->middleware('auth:sanctum');
+
+// dashboard
+Route::get('/getDashboard', [DashboardController::class, 'getDashboard'])->middleware('auth:sanctum');
 
